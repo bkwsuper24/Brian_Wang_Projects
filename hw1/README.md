@@ -9,6 +9,6 @@ Running the Programs
 - Run with ./perm "string to permute"
 
 - Use 'g++ -g -Wall hw1_lists.cpp -o hw1_lists' to create the executable for q5.
-- Run it with ./lists "input filename" "output filename"
+- Run it with ./hw1_lists "input filename" "output filename"
 
  
