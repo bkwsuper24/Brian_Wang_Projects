@@ -74,8 +74,6 @@ void readLists(Item*& head1, Item*& head2, char* fname)
 	}
 return;
 }
-
-
 	
 //Copying and concatenating two lists into one
 Item* concatenate(Item* head1, Item* head2)
@@ -100,9 +98,7 @@ Item* concatenate(Item* head1, Item* head2)
 
 }
 
-
-
-
+//This function removes evens from concatenated list
 void removeEvens(Item*& head)
 {	
 	//Starts and checks for first item in list to see if even
@@ -138,16 +134,38 @@ void removeEvens(Item*& head)
 	}
 }
 
-
-
-
-
-/*
-double findAverage(Item* head);
+//Helper function to sum up the list
+double sumList(Item* head)
 {
+        if(head==NULL)
+        {
+                return 0;
+        }
+        else
+        {
+                return (head->val +(sumList(head->next)));
+        }
+}
+
+//Helper function to keep track number of elements in list
+int ListCounter(Item* head)
+{
+	if(head==NULL)
+	{
+		return 0;
+	}
+	else
+	{
+		return(1+ListCounter(head->next));
+	}
+}
+
+//This function finds average		
+double findAverage(Item* head)
+{
+	return(sumList(head)/ListCounter(head));
 
 }
-*/
 
 //Outputting function to file
 void printList(ostream& ofile, Item* head)
@@ -177,15 +195,18 @@ int main(int argc, char* argv[])
 	//Calling function that writes output
 	ofstream ofile(argv[2]);
 	
-	//Calling function prototype of concatenate and printing
+	//Calling function prototype of concatenate and writing to output file
 	head3 = concatenate(head1, head2);
 	printList(ofile, head3);
 	
-	//Calling function prototype of removeEvens and printing
+	//Calling function prototype of removeEvens and writing to output file
 	removeEvens(head3);
 	printList(ofile, head3);
-
-	//cout << findAverage(head3) << endl;
+	
+	//Printing list and then finding average and writing to output file
+	double temp = findAverage(head3);
+	printList(ofile, head3);
+	ofile << temp << endl;
 
 	//Deleting memory used up by head1
 	while (head1!=NULL)
