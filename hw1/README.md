@@ -6,9 +6,9 @@ General Notes
 Running the Programs
 
 - Use 'g++ -g - Wall perm.cpp -o perm' to create the executable for q4.
-- Run with ./perm <string to permute>
+- Run with ./perm "string to permute"
 
-- Use 'g++ -g -Wall hw1_lists.cpp -o hw1lists' to create the executable for q5.
-- Run it with ./lists <input filename> <output filename>
+- Use 'g++ -g -Wall hw1_lists.cpp -o hw1_lists' to create the executable for q5.
+- Run it with ./lists "input filename" "output filename"
 
  
