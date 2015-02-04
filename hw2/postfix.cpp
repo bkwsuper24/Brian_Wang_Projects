@@ -1,7 +1,7 @@
 #include "stackdbl.h"
 #include <iostream>
-#include <sstream>
 #include <fstream>
+#include <sstream>
 #include <string>
 
 using namespace std;
@@ -137,4 +137,5 @@ int main(int argc, char* argv[])
 
 	return 0;
 }
+
 
