@@ -14,5 +14,5 @@ Running the Programs
 	  to create the executable for problem 4.
 	- Run with./arraylist
 
-	-Use 'g++ -g -Wall stackdbl.cpp stackdbl_test.cpp llistdbl.cpp -o stack'	  to create the executable for problem 5
+	-Use 'g++ -g -Wall stackdbl.cpp stackdbl_test.cpp llistdbl.cpp -o stack' to create the executable for problem 5
 	- Run with ./stack
