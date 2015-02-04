@@ -4,7 +4,8 @@ General Notes
 - My code for problem 3 is in llistdbl.cpp and llistdbl.h
 - My code for problem 4 is in alistint.cpp and alistint.h
 - My code for problem 5 is in stackdbl.cpp and stackdbl.h
-- I have a tests folder that contains tests for problems 3,4,5
+- My code for problem 7 is in postfix.cpp
+- I have a tests folder that contains tests for problems 3,4,5, 7
 
 Running the Programs
 
