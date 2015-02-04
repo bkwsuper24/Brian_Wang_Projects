@@ -39,3 +39,5 @@ f. README.md is modified
 
    void pop() = Theta(1)
    This function removes the top element of the stack by removing the head. This   can be reached in constant time because once again, the function is iterating   through the stack/list once to find the correct position and value to remove.  
+   
+
