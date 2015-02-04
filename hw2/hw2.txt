@@ -1,5 +1,41 @@
-1a. Untracked
-b. Untracked
-c. Unmodified
-d. Modified
-e. 
+1
+a. README.md is unmodified
+
+b. README.md is modified
+   fun_problem.txt is untracked
+
+c. README.md is staged
+   fun_problem.txt is staged
+
+d. README.md is modified
+   fun_problem.txt is modified
+
+e. README.md is staged
+   fun_problem.txt is unmodified
+   The contents of fun_problem.txt is empty because 'checkout' returns to the 
+previous commit of the file, which was empty. All changes up until last commit
+were undone.
+
+f. README.md is modified
+   We modified the file before we committed the changes, so therefore the status   goes back to modified even though we staged the file.
+
+6.
+   bool empty() const = Theta(1)
+   All this function does is check the size of the list, and returns false if
+   the size is greater than 0, or returns true if size = 0.
+   
+   void push(const double& val) = Theta(1)
+   This function pushes a new value to the top of the stack. This can be 
+   reached in constant time because the function is only iterating through the
+   list once, and finding the proper location to insert, which in this case is
+   always the head. This was the fastest way to find the proper location to
+   insert.
+
+   double const& top() const = Theta(1)
+   This function returns the current value on top of the stack, which is also
+   the head of a linked list. This is reached in constant time because the
+   function iterates through the stack/list once to get the value needed. This
+   is the fastest way to find a certain value.
+
+   void pop() = Theta(1)
+   This function removes the top element of the stack by removing the head. This   can be reached in constant time because once again, the function is iterating   through the stack/list once to find the correct position and value to remove.  
