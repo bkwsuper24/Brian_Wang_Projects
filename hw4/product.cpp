@@ -3,8 +3,6 @@
 #include "product.h"
 #include <string>
 
-using namespace std;
-
 Product::Product(const std::string category, const std::string name, double price, int qty) : 
   name_(name),
   price_(price),
@@ -16,18 +14,19 @@ Product::Product(const std::string category, const std::string name, double pric
 
 Product::~Product()
 {
-  //Deallocation
-  std::map<std::string, std::set<Product*> > iterator it = ProductMap.begin();
+  /*//Deallocation
+  map<std::string, std::set<Product*> > iterator it = ProductMap.begin();
   while(it !=ProductMap.end())
   {
     ProductMap.erase(it++);
   }
 
-  std::map<std::string, std::vector<Product*> > iterator it = cartVector.begin();
-  while(it !cartVector.end())
+  map<std::string, std::vector<Product*> > iterator it = cartVector.begin();
+  while(it !=cartVector.end())
   {
     cartVector.erase(it++);
   }
+  */
 }
 
 
@@ -63,16 +62,16 @@ bool Product::isMatch(std::vector<std::string>& searchTerms) const
 
 void Product::dump(std::ostream& os) const
 {
-  os << category_ << "\n" << name_ << "\n" << price_ << "\n" << qty_ << endl;
+  os << category_ << "\n" << name_ << "\n" << price_ << "\n" << qty_ << "\n";
 }
 
-string Product::displayString() const
+std::string Product::displayString() const
 {
-  stringstream ss;
-  stringstream nn;
+  std::stringstream ss;
+  std::stringstream nn;
 
-  string str_price;
-  string str_qty;
+  std::string str_price;
+  std::string str_qty;
 
   ss << qty_;
   str_qty = ss.str();
@@ -80,7 +79,7 @@ string Product::displayString() const
   nn << price_;
   str_price = nn.str();
 
-  string display = name_ + " " + str_price + " " + str_qty;
+  std::string display = name_ + " " + str_price + " " + str_qty;
   return display;
 
 

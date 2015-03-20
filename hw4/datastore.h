@@ -64,7 +64,7 @@ class DStore: public DataStore
     std::vector<User*> UserVector;
 
     std::map<std::string, std::set<Product*> > ProductMap;
-    std::map<std::string, std::vector<Product*> > cartVector;
+    std::map<std::string, std::vector<Product*> > cartMap;
 };
 
 #endif
