@@ -137,9 +137,10 @@ void DStore::dump(std::ostream& ofile)
 
 void DStore::addCart(string username, Product *p)
 {
-	std::vector<Product*> product = cartVector.find(username)->second; 
+	vector<Product*> temp;
+	std::vector<Product*> product = cartMap.find(username)->second; //segfaults here
 
-	if(product != cartVector.end()->second)
+	if(cartMap.find(username) != cartMap.end())
 	{
 		cout << "Enters loop" << endl;
 		product.push_back(p);
@@ -147,19 +148,19 @@ void DStore::addCart(string username, Product *p)
 	//create new cart
 	else
 	{
+		cout << "Enters create cart loop" << endl;
 		//temporary vector to add cart
-		vector<Product*> temp;
 		temp.push_back(p);
-		cartVector.insert(make_pair(username, temp));
+		cartMap.insert(make_pair(username, temp));
 	}
 }
 
 void DStore::viewCart(string username)
 {
 	//username exists in vector
-	if(cartVector.find(username) != cartVector.end())
+	if(cartMap.find(username) != cartMap.end())
 	{
-		std::vector<Product*> temp = cartVector.find(username)->second;
+		std::vector<Product*> temp = cartMap.find(username)->second;
 
 		//temp.size()
 		for(unsigned int i=0; i < temp.size(); i++)
@@ -178,60 +179,38 @@ void DStore::viewCart(string username)
 
 void DStore::buyCart(string shopper)
 {
-	std::vector<User*>sampleuser;
-
-	int counter = 0;
 	//Looping through user vector to find if person exists
 	for(unsigned int i=0; i<UserVector.size();i++)
 	{
-		if(UserVector.getName() == shopper)
+		if(UserVector[i]->getName() == shopper)
 		{
-			counter = 1;
-			sampleuser = UserVector[i];
+			vector<Product*> samplecart = cartMap.find(shopper)->second;
+
+			//loop once for the samplecart of one person
+			for(unsigned int j=0; i<samplecart.size(); j++)
+			{
+				//check to see if you have sufficent funds
+				if(samplecart[j]->getQty()>0 && (UserVector[i]->getBalance() - samplecart[j]->getPrice()>=0))
+				{
+					UserVector[i]->deductAmount(samplecart[j]->getPrice());
+					samplecart[j]->subtractQty(0);
+				}
+				else
+				{
+					cout << "You don't have enought money/There is nothing in your cart!" << endl;
+				}
+
+			}
 		}
 		else
 		{
 			cout << "You don't exist!";
 		}
 	}
-
-
-	if(counter == 1)
-	{
-		vector<Product*> samplecart = cartVector.find(buyer)->second
-
-		//loop once for the samplecart of one person
-		for(unsigned int i=0; i<samplecart.size(); i++)
-		{
-			//check to see if you have sufficent funds
-			if(samplecart[i]->getQty()>0 && (sampleuser->getBalance() - samplecart[i]->getPrice()>=0)
-			{
-				sampleuser->deductAmount(samplecart[i]->getPrice());
-				samplecart[i]->subtractQty(0);
-			}
-			else
-			{
-				cout << "You don't have enought money!" << endl;
-			}
-
-		}
-	}
-	else
-	{
-		return;
-	}
 }
 
 
 	
 
-
-
-
-	
-	
-
-
-}
 	
 

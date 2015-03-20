@@ -95,11 +95,15 @@ int main(int argc, char* argv[])
       /** ADD support for other command here **/
       else if (cmd == "ADD")
       {
+        int result;
+
         string username;
 
         ss>>username;
 
-        ds.addCart(username, &hits);
+        ss>>result;
+
+        ds.addCart(username, hits[result-1]);
 
       }
       else if(cmd == "VIEWCART")
