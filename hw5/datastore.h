@@ -64,7 +64,7 @@ class DStore: public DataStore
     void addCart(std::string username, Product* p);
     std::vector<Product*> viewCart(std::string username);
     void buyCart(std::string shopper);
-    void removeCart(std::string name, int index);
+    std::vector<Product*> removeCart(std::string name, int index);
 
     std::vector<User*> getUserVector();
     std::vector<Product*> getProductVector();

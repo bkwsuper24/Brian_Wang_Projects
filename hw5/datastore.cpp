@@ -195,7 +195,7 @@ std::vector<Product*> DStore::viewCart(string username)
 
 }
 
-void DStore::removeCart(std::string name, int index)
+vector<Product*> DStore::removeCart(std::string name, int index)
 {
 	std::vector<Product*> tempVec1;
 	std::vector<Product*> tempVec2;
@@ -204,13 +204,15 @@ void DStore::removeCart(std::string name, int index)
 
 	for(unsigned int i=0; i<tempVec1.size(); i++)
 	{
-		if(i!=index)
+		int x=i;
+		if(x!=index)
 		{
 			tempVec2.push_back(tempVec1[i]);
 		}
 	}
 
 	cartMap[name] = tempVec2;
+	return tempVec2; ;
 
 
 }

@@ -41,9 +41,11 @@ public:
 	void QUIT();
 	void ADDREVIEW();
 	void ProductChange(int prodIndex);
+	void ReviewChange(int usercartcounter);
 	void displayReviews();
 
 private:
+		int UserCount;
 		int index4u;
 		int productCount;
 		std::vector<Review*> reviews;

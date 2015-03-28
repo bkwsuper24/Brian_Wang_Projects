@@ -22,7 +22,7 @@ static const uint qt_meta_data_Main_Window[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -42,7 +42,8 @@ static const uint qt_meta_data_Main_Window[] = {
      123,   12,   12,   12, 0x08,
      130,   12,   12,   12, 0x08,
      152,  142,   12,   12, 0x08,
-     171,   12,   12,   12, 0x08,
+     187,  171,   12,   12, 0x08,
+     205,   12,   12,   12, 0x08,
 
        0        // eod
 };
@@ -52,7 +53,8 @@ static const char qt_meta_stringdata_Main_Window[] = {
     "AlphaSort()\0RSort()\0ADDCART()\0VIEWCART()\0"
     "PUSHBUYBUTTON()\0PUSHREMOVEBUTTON()\0"
     "SAVE()\0QUIT()\0ADDREVIEW()\0prodIndex\0"
-    "ProductChange(int)\0displayReviews()\0"
+    "ProductChange(int)\0usercartcounter\0"
+    "ReviewChange(int)\0displayReviews()\0"
 };
 
 void Main_Window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -73,7 +75,8 @@ void Main_Window::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 9: _t->QUIT(); break;
         case 10: _t->ADDREVIEW(); break;
         case 11: _t->ProductChange((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 12: _t->displayReviews(); break;
+        case 12: _t->ReviewChange((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 13: _t->displayReviews(); break;
         default: ;
         }
     }
@@ -111,9 +114,9 @@ int Main_Window::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 14;
     }
     return _id;
 }

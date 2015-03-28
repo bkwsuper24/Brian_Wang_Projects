@@ -2,6 +2,7 @@
 #include <sstream>
 #include "product_parser.h"
 /** Add any other desired #includes below */
+#include "main_window.h"
 
 
 using namespace std;

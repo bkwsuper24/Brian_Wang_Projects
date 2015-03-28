@@ -7,7 +7,6 @@
 #include <iostream>
 #include "msort.h"
 #include <fstream>
-using namespace std;
 
 Main_Window::Main_Window(std::string ifile)
 {
@@ -140,7 +139,6 @@ Main_Window::Main_Window(std::string ifile)
 
 	//Create empty list that will have reviews of products from search
 	ReviewList = new QListWidget();
-	//connect(ReviewList, SIGNAL(currentRowChanged(int)), this, SLOT(ReviewChange(int)));
 	ReviewLayout->addWidget(ReviewList);
 
 	//Create add reviews layout
@@ -379,6 +377,7 @@ void Main_Window::VIEWCART()
 	cartWindowLayout->addWidget(cartWindowLabel);
 
 	QListWidget* cartList = new QListWidget();
+	connect(cartList, SIGNAL(currentRowChanged(int)), this, SLOT(ReviewChange(int)));
 	cartref = cartList;
 	cartWindowLayout->addWidget(cartList);
 	hits = ds.viewCart(currentuser);
@@ -447,36 +446,55 @@ void Main_Window::ADDREVIEW()
 		int rating1 (RatingLine->text().toInt());
 		std::string text (TextLine->text().toStdString());
 
-		/*
-		int position = 0;
-		int position1 = 4;
+			if(rating1 <1 || rating1 >5)
+			{
+				QMessageBox::warning(this, "ERROR", "DID NOT ENTER VALID RATING RANGE");
+			}
 
-		for(unsigned int i=0; i<5; i++)
+		
+		int position = 0;
+		int position1 = 5;
+		int position2 = 8;
+
+		for(unsigned int i=0; i<6; i++)
 		{
 			if(date[i] == '-')
 			{
-				string year = date.substr(position,(i-position));
+				std::string year = date.substr(position,(i-position));
 				if(year.size() !=4)
 				{
-					return;
+					QMessageBox::warning(this, "ERROR", "ENTER VALID YEAR RANGE AND FORMAT");
 				}
+				position = i+1;
 			}
 		}
 
-		for(unsigned int i=6; i<date.size(); i++)
+		for(unsigned int i=5; i<date.size(); i++)
 		{
 			if(date[i] == '-')
 			{
-				string monthdate = date.substr(position1, i-position1);
-				if(monthdate.size() !=2)
+				std:: string month = date.substr(position1, (i-position1));
+				if(month.size() != 2)
 				{
-					return;
+					QMessageBox::warning(this, "ERROR", "ENTER VALID YEAR RANGE AND FORMAT");
 				}
-				position1 = i+1;
+				position = i+1;
 			}
 		}
-		*/
-		
+
+		for(unsigned int i=8; i<date.size(); i++)
+		{
+			if(date[i] == '-')
+			{
+				std:: string month = date.substr(position2, (i-position2));
+				if(month.size() != 2)
+				{
+					QMessageBox::warning(this, "ERROR", "ENTER VALID MONTH/DAY RANGE AND FORMAT");
+				}
+				position = i+1;
+			}
+		}
+
 
 		Review *r = new Review();
 		
@@ -509,6 +527,22 @@ void Main_Window::ProductChange(int productcounter)
 	}
 }
 
+void Main_Window::ReviewChange(int usercartcounter)
+{
+	UserCount = usercartcounter;
+	if(UserCount < 0)
+	{
+		return;
+	}
+	else
+	{
+
+
+	}
+}
+
+
+
 void Main_Window::displayReviews()
 {
 	ReviewList->clear();
@@ -519,6 +553,7 @@ void Main_Window::displayReviews()
 	std::map<std::string, std::vector <Review*> > reviewMap = ds.getReviewMap();
 	std::vector<Review*> reviews = reviewMap[name];
 
+	//msort(reviews, compname)
 	for(unsigned int i=0; i<reviews.size(); i++)
 	{
 		std::ostringstream oss;
@@ -547,10 +582,17 @@ void Main_Window::PUSHBUYBUTTON()
 
 void Main_Window::PUSHREMOVEBUTTON()
 {
-	//ds.removeCart(currentuser, hits[1]);
+	ds.removeCart(currentuser, UserCount);
 
+	cartref->clear();
 
+	hits = ds.removeCart(currentuser, UserCount);
 
-
-	
+	for(unsigned int i=0; i<hits.size(); i++)
+	{
+		std::string strtemp = (hits[i])->displayString();
+		QString qs = QString::fromStdString(strtemp); 
+    	cartref->addItem(qs);
+    }
 }
+
