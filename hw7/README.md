@@ -1,4 +1,4 @@
-I have attached Makefile, but it is not complete. Follow directions below:
+I have attached Makefile, but it is faulty, so follow directions below:
 
 
 To compile the bst program: g++ -g -Wall bst.cpp -o bst
