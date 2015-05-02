@@ -1,13 +1,13 @@
 #include <iostream>
 #include "newuser_window.h"
 
-NewUserInfo::NewUserInfo(DStore dbase, std::string &username, long long &finalpassword)
+NewUserInfo::NewUserInfo(DStore* pdbase, std::string username, long long finalpassword)
 {
 	setWindowTitle("Amazon New User Info");
 
 	username_ = username;
 	finalpassword_ = finalpassword;
-	dbase_ = dbase;
+	dbase_ = pdbase;
 
 	//Overall Layout
 	overallLayout = new QVBoxLayout();
@@ -29,7 +29,7 @@ NewUserInfo::NewUserInfo(DStore dbase, std::string &username, long long &finalpa
 	overallLayout->addWidget(creditInput);
 
 	//create OK button
-	OKButton = new QPushButton("DONE");
+	OKButton = new QPushButton("CREATE");
 	overallLayout->addWidget(OKButton);
 	connect(OKButton, SIGNAL(clicked()), this, SLOT(Done()));
 
