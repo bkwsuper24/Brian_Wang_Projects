@@ -19,7 +19,7 @@ class NewUserInfo : public QWidget
 	Q_OBJECT
 
 public:
-	NewUserInfo(DStore dbase, std::string &username, long long &finalpassword);
+	NewUserInfo(DStore* &pdbase, std::string &username, long long &finalpassword);
 	~NewUserInfo();
 
 	private slots:
@@ -37,5 +37,5 @@ private:
 	QLineEdit* creditInput;
 
 	QPushButton* OKButton;
-	DStore dbase_;	
+	DStore* dbase_;	
 };

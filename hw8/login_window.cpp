@@ -159,7 +159,7 @@ void Login_Window::NewUser()
 	}
 
 	//password length check
-	if(password.size() > 8)
+	if(password.size() > 7)
 	{
 		QMessageBox::warning(this, "Password too long", "Password must be less than 8 characters. Try Again");
 		return;
@@ -180,7 +180,8 @@ void Login_Window::NewUser()
 
 	long long finalpassword = passwordHash(password);
 
-	newinfo = new NewUserInfo(dbase, username, finalpassword);
+	DStore* pdbase = &dbase;
+	newinfo = new NewUserInfo(pdbase, username, finalpassword);
 	newinfo->show();
 }
 

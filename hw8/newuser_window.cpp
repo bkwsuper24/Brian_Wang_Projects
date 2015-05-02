@@ -1,7 +1,7 @@
 #include <iostream>
 #include "newuser_window.h"
 
-NewUserInfo::NewUserInfo(DStore* pdbase, std::string username, long long finalpassword)
+NewUserInfo::NewUserInfo(DStore* &pdbase, std::string &username, long long &finalpassword)
 {
 	setWindowTitle("Amazon New User Info");
 
@@ -63,6 +63,6 @@ void NewUserInfo::Done()
 
 	User* newUser = new User(username_, age, credit, 0, finalpassword_);
 
-	dbase_.addUser(newUser);
+	dbase_->addUser(newUser);
 	this->close();  
 }
