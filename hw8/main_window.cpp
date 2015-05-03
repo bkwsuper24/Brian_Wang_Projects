@@ -180,6 +180,181 @@ Main_Window::~Main_Window()
 
 }
 
+/*
+std::map <std::string, int> MainWindow::calculateProductRecs(){
+	//Let's say that the logged-in user is A, and we calculate the
+	// "interestingness" of product P to A.
+
+	//Let S be the set of all other users who have rated P.
+	// (We only look at products P that A has not yet rated.)
+	std::map< std::string, std::vector<Review*> > productReviews = ds.getProductReviews();
+	//pair of username, reviewS
+  	std::map< std::string, std::vector<Review*> > otherUserProductRatings;
+  	//map of prodname, review for current user (A)
+	std::map< std::string, Review* > userProductRatings;
+	//username, similarity
+	
+	for(std::map <std::string, std::vector<Review*> >::iterator it=productReviews.begin(); it!=productReviews.end(); ++it){
+		for(int j=0; j<it->second.size(); j++){
+			std::vector <Review*> revs;
+			Review* rev;
+	//		revs.push_back(it->second[j]);
+			if(it->second[j]->getUsername() == userid_){
+				if (userProductRatings.find(it->second[j]->getProdname()) == userProductRatings.end() ){
+					userProductRatings.insert(std::make_pair(it->second[j]->getProdname() ,rev));
+				} 
+				userProductRatings[it->second[j]->getProdname()] = it->second[j];
+			}
+			else{
+				if (otherUserProductRatings.find(it->second[j]->getUsername()) == otherUserProductRatings.end() ){
+					otherUserProductRatings.insert(std::make_pair(it->second[j]->getUsername() ,revs));
+				} 
+				otherUserProductRatings[it->second[j]->getUsername()].push_back(it->second[j]);	
+			}
+		}
+	}
+
+	userProductRatings_ = userProductRatings;
+
+
+	//map of username, similarity 
+	std::map< std::string, std::vector<int> > similarity;
+	//map of username, similarity avg 
+	std::map< std::string, double > simAvg;
+	for(std::map<std::string, std::vector<Review*> >::iterator otherIt=otherUserProductRatings.begin(); otherIt!=otherUserProductRatings.end(); ++otherIt){
+		for(int j=0; j<otherIt->second.size(); j++){
+			std::vector<int> simVals;
+			if (userProductRatings.find(otherIt->second[j]->getProdname()) == userProductRatings.end() ){
+				std::cout << "Product not rated" << std::endl;
+			} 
+			else{
+				if (similarity.find(otherIt->second[j]->getUsername()) == similarity.end() ){
+					similarity.insert(std::make_pair(otherIt->second[j]->getUsername() ,simVals));
+				} 
+				int ARating;
+				std::string ARatingString = userProductRatings[otherIt->second[j]->getProdname()]->getRating();
+				std::istringstream ss(ARatingString);
+				ss >> ARating;
+
+				int BRating;
+				std::string BRatingString = otherIt->second[j]->getRating();
+				std::istringstream ss1(BRatingString);
+				ss1 >> BRating;
+				similarity[otherIt->second[j]->getUsername()].push_back((abs(ARating - BRating)/4));
+			}
+			//here  we get the every product review for the other user
+			//formula mod(a-b)/4 
+		}
+	}	
+
+	for(std::map <std::string, std::vector<int> >::iterator SimIt=similarity.begin(); SimIt!=similarity.end(); ++SimIt){
+		double simavg = 0.0;
+		for(int j=0; j<SimIt->second.size(); j++){
+			simavg += SimIt->second[j];
+		}
+		simavg = simavg/(SimIt->second.size());
+		simAvg.insert(std::make_pair(SimIt->first,simavg));
+	}
+	
+	for(std::map<std::string, std::vector<Review*> >::iterator otherIt=otherUserProductRatings.begin(); otherIt!=otherUserProductRatings.end(); ++otherIt){
+		for (std::vector<Review*>::iterator it= otherIt->second.begin(); it!=otherIt->second.end();) {
+			std::cout << "otherIt->first username: " << otherIt->first << " (*it)->getProdname() :" <<(*it)->getProdname() <<  std::endl; 
+			++it;
+		 }
+	}
+	//Let S be the set of all other users who have rated P. (We only look at products P that A has not yet rated.)
+	//to achieve this, remove products from otherUserProductReviews that User has reviewed already
+	for(std::map<std::string, std::vector<Review*> >::iterator otherIt=otherUserProductRatings.begin(); otherIt!=otherUserProductRatings.end(); ++otherIt){
+		for (std::vector<Review*>::iterator it= otherIt->second.begin(); it!=otherIt->second.end();) {
+			if(userProductRatings.find((*it)->getProdname()) == userProductRatings.end() ){ 
+				std::cout << "Product not rated, keeping" << std::endl;
+				++it;
+
+			}
+			else{
+				std::cout << "deleting " << (*it)->getProdname() << " from " << userid_ << std::endl;
+				otherIt->second.erase(it);
+			}
+		 }
+	}
+	
+	for(std::map<std::string, std::vector<Review*> >::iterator otherIt=otherUserProductRatings.begin(); otherIt!=otherUserProductRatings.end(); ++otherIt){
+		for (std::vector<Review*>::iterator it= otherIt->second.begin(); it!=otherIt->second.end();) {
+			std::cout << "otherIt->first username AFTER: " << otherIt->first << " (*it)->getProdname() AFTER:" <<(*it)->getProdname() <<  std::endl; 
+			++it;
+		 }
+	}
+	
+
+	//map of prodname  and interestingness
+	std::map< std::string, int > interestingnessMap;
+	//For each user B in S, let r(B,P) be the rating that B gave P, and s(B,A) the similarity between B and A.
+	int rP = 0;
+	int W = 0;
+
+    //loop all product reviews
+    //for each product, 
+    // if so, consider this
+    //loop all review for this product, gather rP, W, get interegstingness for this product and so on for the next one
+	for(std::map <std::string, std::vector<Review*> >::iterator it=productReviews.begin(); it!=productReviews.end(); ++it){
+		//check if this is in other userproducteview
+		bool validProduct = false;
+		for(int i=0; i<it->second.size(); i++){
+			std::string username = it->second[i]->getUsername();
+			if(otherUserProductRatings.find(username) != otherUserProductRatings.end()){
+				std::vector <Review*> revs = otherUserProductRatings[username];
+				for (std::vector<Review*>::iterator it1= revs.begin(); it1!=revs.end();) {
+					std::cout << "username: " << username << " and prodname: " << (*it1)->getProdname() << std::endl;
+					if((*it1)->getProdname() == it->first){
+						//For each user B in S, let r(B,P) be the rating that B gave P
+						validProduct = true; 
+						int rBP;
+						std::string rBPString = (*it1)->getRating();
+						std::istringstream ss(rBPString);
+						ss >> rBP;
+					  	// and s(B,A) the similarity between B and A.
+						int sBA = simAvg[(*it1)->getUsername()];
+						//Let R(P) be the sum of (1-s(B,A))*r(B,P), over all users B in S.
+						rP += (1-sBA)*rBP;
+						//Let W be the sum of (1-s(B,A)) over all users B in S.
+						W += (1-sBA);
+						break;	
+					}
+					++it1;
+				}
+			}
+		}
+		if(validProduct){
+
+		  	//The interestingness of P to A is now R(P)/W. 
+			//If W=0, then also R(P)=0, and we define the interestingness as 0/0 := 0.
+			int interestingnessVal =0;
+			if(W>0){
+				interestingnessVal = rP/W;
+			}
+			interestingnessMap.insert(std::make_pair(it->first, interestingnessVal));
+		}
+	}
+	return interestingnessMap;
+}
+
+std::string MainWindow::getRecommended(){
+	userListWidget->clear();
+	std::string prodname;
+	int maxVal = 0;
+	std::map <std::string, int> interestingness = calculateProductRecs();
+	for(std::map <std::string, int>::iterator it = interestingness.begin(); it!= interestingness.end(); ++it){
+		if(it->second > maxVal){
+			maxVal = it->second;
+			prodname = it->first;
+		} 
+	}
+	QString qstr1 = QString::fromStdString(prodname);
+	userListWidget->addItem(qstr1);
+	return prodname;
+}
+*/
+
 void Main_Window::SEARCH()
 {
 	ProductList->clear();
