@@ -34,12 +34,12 @@ string Movie::getRating() const
 
 set<string> Movie::keywords() const
 {
-	string keyword = category_ + " " + name_ + " " + rating_ + " ";
+	string keyword = category_ + " " + name_ + " " + genre_ + " ";
 
 	set<string> myset;
 
 	myset = parseStringToWords(keyword);
-	myset.insert(genre_);
+	myset.insert(rating_);
 
 	return myset; 
 }

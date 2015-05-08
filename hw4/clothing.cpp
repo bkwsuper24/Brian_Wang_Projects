@@ -34,7 +34,7 @@ string Clothing::getBrand() const
 
 set<string> Clothing::keywords() const
 {
-	string keyword = category_ + " " + name_ + " " + size_ + " " + brand_;
+	string keyword = category_ + " " + name_ + " " + size_ + " " + brand_ + " ";
 
 	return (parseStringToWords(keyword)); 
 }

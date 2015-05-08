@@ -14,19 +14,8 @@ Product::Product(const std::string category, const std::string name, double pric
 
 Product::~Product()
 {
-  /*//Deallocation
-  map<std::string, std::set<Product*> > iterator it = ProductMap.begin();
-  while(it !=ProductMap.end())
-  {
-    ProductMap.erase(it++);
-  }
+  
 
-  map<std::string, std::vector<Product*> > iterator it = cartVector.begin();
-  while(it !=cartVector.end())
-  {
-    cartVector.erase(it++);
-  }
-  */
 }
 
 
