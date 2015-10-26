@@ -1,5 +1,4 @@
-# CS 104 Student Repository
+# Brian Wang Projects
 
 - **Nam**: Brian Wang
-- **USC ID**: 3800988741
 - **Email**: briankwa@usc.edu
