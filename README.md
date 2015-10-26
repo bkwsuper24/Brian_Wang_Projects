@@ -1,4 +1,4 @@
 # Brian Wang Projects
 
-- **Nam**: Brian Wang
+- **Name**: Brian Wang
 - **Email**: briankwa@usc.edu
